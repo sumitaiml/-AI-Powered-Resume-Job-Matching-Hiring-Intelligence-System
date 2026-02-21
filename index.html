@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HRTech Platform - Professional Resume Ranking System</title>
     <style>
+        /* === Base Reset === */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* === Theme Tokens === */
         :root {
             --primary: #667eea;
             --primary-dark: #764ba2;
@@ -22,11 +24,19 @@
             --border: #e5e7eb;
             --text-dark: #111827;
             --text-light: #6b7280;
+            --text-muted-on-dark: #a0aec0;
+            --white: #ffffff;
+            --bg-page-start: #0f172a;
+            --bg-page-end: #1e293b;
+            --shadow-soft-dark: rgba(0, 0, 0, 0.2);
+            --shadow-soft-light: rgba(255, 255, 255, 0.3);
+            --icon-hover-brightness: 1.08;
         }
 
+        /* === Page Layout === */
         body {
             font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: linear-gradient(135deg, var(--bg-page-start) 0%, var(--bg-page-end) 100%);
             min-height: 100vh;
             padding: 20px;
             color: var(--text-dark);
@@ -47,6 +57,7 @@
             font-size: 2.75em;
             font-weight: 800;
             background: linear-gradient(135deg, #10b981 0%, #667eea 100%);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 12px;
@@ -55,10 +66,11 @@
 
         .header-subtitle {
             font-size: 1.125em;
-            color: #a0aec0;
+            color: var(--text-muted-on-dark);
             font-weight: 500;
         }
 
+        /* === Tabs === */
         .tabs-container {
             display: flex;
             gap: 32px;
@@ -85,7 +97,7 @@
         }
 
         .tab:hover .card-title-icon {
-            transform: translateY(-3px) rotateY(15deg);
+            transform: translateY(-2px) scale(1.03);
         }
 
         .tab.active {
@@ -95,6 +107,13 @@
 
         .tab.active .card-title-icon {
             animation: iconBounce 0.6s ease-out;
+        }
+
+        .tab-icon {
+            width: 28px;
+            height: 28px;
+            font-size: 14px;
+            margin-right: 8px;
         }
 
         @keyframes iconBounce {
@@ -150,8 +169,20 @@
             }
         }
 
+        @media (max-width: 640px) {
+            .tabs-container {
+                gap: 20px;
+            }
+
+            .tab-icon {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        /* === Cards === */
         .card {
-            background: white;
+            background: var(--white);
             border-radius: 16px;
             padding: 32px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -188,29 +219,32 @@
             border-radius: 12px;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
         }
 
         .card-title-icon:hover {
-            transform: rotateY(15deg) rotateX(10deg) scale(1.05);
-            animation: iconGlow 2s ease-in-out infinite;
+            transform: rotateY(10deg) rotateX(6deg) scale(1.04);
+            filter: brightness(var(--icon-hover-brightness));
         }
 
-        @keyframes iconGlow {
-            0%, 100% {
-                filter: brightness(1);
-            }
-            50% {
-                filter: brightness(1.2);
-            }
+        /* === Icon System === */
+        .icon-document,
+        .icon-check,
+        .icon-briefcase,
+        .icon-list,
+        .icon-target,
+        .icon-chart,
+        .icon-inbox,
+        .icon-warning {
+            box-shadow: 0 8px 20px var(--icon-glow),
+                        inset 0 -3px 8px var(--shadow-soft-dark),
+                        inset 0 3px 8px var(--shadow-soft-light);
         }
 
         /* Document Icon - Upload Resume */
         .icon-document {
+            --icon-glow: rgba(102, 126, 234, 0.38);
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4),
-                        inset 0 -3px 8px rgba(0, 0, 0, 0.2),
-                        inset 0 3px 8px rgba(255, 255, 255, 0.3);
         }
 
         .icon-document::before {
@@ -236,10 +270,8 @@
 
         /* Checkmark Icon - Success */
         .icon-check {
+            --icon-glow: rgba(16, 185, 129, 0.38);
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4),
-                        inset 0 -3px 8px rgba(0, 0, 0, 0.2),
-                        inset 0 3px 8px rgba(255, 255, 255, 0.3);
         }
 
         .icon-check::before {
@@ -255,10 +287,8 @@
 
         /* Briefcase Icon - Create Job */
         .icon-briefcase {
+            --icon-glow: rgba(245, 158, 11, 0.38);
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4),
-                        inset 0 -3px 8px rgba(0, 0, 0, 0.2),
-                        inset 0 3px 8px rgba(255, 255, 255, 0.3);
         }
 
         .icon-briefcase::before {
@@ -284,10 +314,8 @@
 
         /* List Icon - Jobs List */
         .icon-list {
+            --icon-glow: rgba(59, 130, 246, 0.38);
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4),
-                        inset 0 -3px 8px rgba(0, 0, 0, 0.2),
-                        inset 0 3px 8px rgba(255, 255, 255, 0.3);
         }
 
         .icon-list::before {
@@ -303,10 +331,8 @@
 
         /* Target Icon - Rank Candidates */
         .icon-target {
+            --icon-glow: rgba(239, 68, 68, 0.38);
             background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4),
-                        inset 0 -3px 8px rgba(0, 0, 0, 0.2),
-                        inset 0 3px 8px rgba(255, 255, 255, 0.3);
         }
 
         .icon-target::before {
@@ -331,10 +357,8 @@
 
         /* Chart Icon - Results */
         .icon-chart {
+            --icon-glow: rgba(139, 92, 246, 0.38);
             background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4),
-                        inset 0 -3px 8px rgba(0, 0, 0, 0.2),
-                        inset 0 3px 8px rgba(255, 255, 255, 0.3);
         }
 
         .icon-chart::before {
@@ -351,10 +375,8 @@
 
         /* Inbox Icon - Empty State */
         .icon-inbox {
+            --icon-glow: rgba(107, 114, 128, 0.35);
             background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
-            box-shadow: 0 8px 20px rgba(107, 114, 128, 0.4),
-                        inset 0 -3px 8px rgba(0, 0, 0, 0.2),
-                        inset 0 3px 8px rgba(255, 255, 255, 0.3);
         }
 
         .icon-inbox::before {
@@ -380,10 +402,8 @@
 
         /* Warning Icon */
         .icon-warning {
+            --icon-glow: rgba(245, 158, 11, 0.38);
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4),
-                        inset 0 -3px 8px rgba(0, 0, 0, 0.2),
-                        inset 0 3px 8px rgba(255, 255, 255, 0.3);
             clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
         }
 
@@ -565,6 +585,7 @@
             font-size: 1.75em;
             font-weight: 800;
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             line-height: 1.2;
@@ -966,16 +987,16 @@
         <!-- Tabs -->
         <div class="tabs-container">
             <div class="tab active" onclick="switchTab('upload')">
-                <span class="card-title-icon icon-document" style="width: 28px; height: 28px; font-size: 14px; margin-right: 8px;"></span> Upload Resume
+                <span class="card-title-icon tab-icon icon-document"></span> Upload Resume
             </div>
             <div class="tab" onclick="switchTab('job')">
-                <span class="card-title-icon icon-briefcase" style="width: 28px; height: 28px; font-size: 14px; margin-right: 8px;"></span> Create Job
+                <span class="card-title-icon tab-icon icon-briefcase"></span> Create Job
             </div>
             <div class="tab" onclick="switchTab('rank')">
-                <span class="card-title-icon icon-target" style="width: 28px; height: 28px; font-size: 14px; margin-right: 8px;"></span> Rank Candidates
+                <span class="card-title-icon tab-icon icon-target"></span> Rank Candidates
             </div>
             <div class="tab" onclick="switchTab('results')">
-                <span class="card-title-icon icon-chart" style="width: 28px; height: 28px; font-size: 14px; margin-right: 8px;"></span> Results
+                <span class="card-title-icon tab-icon icon-chart"></span> Results
             </div>
         </div>
 
