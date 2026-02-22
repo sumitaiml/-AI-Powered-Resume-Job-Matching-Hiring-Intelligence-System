@@ -11,6 +11,10 @@ from sqlalchemy.orm import sessionmaker
 
 class Settings(BaseSettings):
     """Application settings from environment variables"""
+
+    # Environment
+    APP_ENV: str = "development"
+    LOG_LEVEL: str = "info"
     
     # Database
     DATABASE_URL: str = "sqlite:///./hrtech_db.db"
@@ -119,5 +123,3 @@ def get_db():
         db.close()
 
 
-# Initialize database on module load
-DatabaseManager.initialize()

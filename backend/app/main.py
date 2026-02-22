@@ -4,6 +4,7 @@ HRTech Platform - AI-powered resume screening and candidate ranking
 """
 
 import logging
+from urllib.parse import urlparse
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
@@ -12,8 +13,21 @@ from app.core import settings, DatabaseManager
 from app.apis import candidates, jobs, ranking
 
 # Setup logging
-logging.basicConfig(level=logging.INFO)
+log_level = getattr(logging, settings.LOG_LEVEL.upper(), logging.INFO)
+logging.basicConfig(level=log_level)
 logger = logging.getLogger(__name__)
+
+
+def _mask_database_url(url: str) -> str:
+    """Hide password in database URLs for safe logging."""
+    try:
+        parsed = urlparse(url)
+        if parsed.password:
+            masked_netloc = parsed.netloc.replace(parsed.password, "*****")
+            return parsed._replace(netloc=masked_netloc).geturl()
+    except ValueError:
+        return url
+    return url
 
 # Initialize database
 DatabaseManager.initialize()
@@ -108,9 +122,13 @@ app.openapi = custom_openapi
 async def startup():
     """Startup event"""
     logger.info("🚀 HRTech Platform backend starting...")
-    logger.info(f"📊 Database: {settings.DATABASE_URL}")
-    logger.info(f"🧠 NLP Model: {settings.SPACY_MODEL}")
-    logger.info(f"🎯 SBERT Model: {settings.SBERT_MODEL}")
+    logger.info(f"Environment: {settings.APP_ENV}")
+    logger.info(f"Database: {_mask_database_url(settings.DATABASE_URL)}")
+    logger.info(f"Vector DB: {settings.VECTOR_DB_TYPE}")
+    logger.info(f"Upload directory: {settings.UPLOAD_DIR}")
+    logger.info(f"Max upload size: {settings.MAX_FILE_SIZE / (1024 * 1024):.1f} MB")
+    logger.info(f"NLP model: {settings.SPACY_MODEL}")
+    logger.info(f"SBERT model: {settings.SBERT_MODEL}")
     logger.info("✅ Backend ready!")
 
 
