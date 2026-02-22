@@ -12,7 +12,7 @@ Repository: https://github.com/sumitaiml/-AI-Powered-Resume-Job-Matching-Hiring-
 | 01 |  |  |  |  |  | ⬜ Pending |
 | 02 | 2026-02-20 | Frontend UI consistency | Day 02: frontend - improve index.html spacing, typography, and section alignment | index.html, docs/commit-plan/daily-commit-log.md | https://github.com/sumitaiml/-AI-Powered-Resume-Job-Matching-Hiring-Intelligence-System/commit/881b94c59cbae4bd3de32a856547644a114ecf8b | ✅ Done |
 | 03 | 2026-02-21 | Frontend icon/theming polish + CSS organization | Day 03: frontend - improve 3D icon styling and CSS organization | index.html, docs/commit-plan/daily-commit-log.md | https://github.com/sumitaiml/-AI-Powered-Resume-Job-Matching-Hiring-Intelligence-System/commit/a74c7c8 | ✅ Done |
-| 04 | 2026-02-22 | Backend config cleanup | Day 04: backend - clean up settings defaults and startup logs | backend/app/core/config.py, backend/app/main.py, backend/.env.example, docs/commit-plan/daily-commit-log.md |  | 🟨 In Progress |
+| 04 | 2026-02-22 | Backend config cleanup | Day 04: backend - clean up settings defaults and startup logs | backend/app/core/config.py, backend/app/main.py, backend/.env.example, docs/commit-plan/daily-commit-log.md | https://github.com/sumitaiml/-AI-Powered-Resume-Job-Matching-Hiring-Intelligence-System/commit/8d3590e | ✅ Done |
 | 05 |  |  |  |  |  | ⬜ Pending |
 | 06 |  |  |  |  |  | ⬜ Pending |
 | 07 |  |  |  |  |  | ⬜ Pending |
@@ -83,8 +83,8 @@ Repository: https://github.com/sumitaiml/-AI-Powered-Resume-Job-Matching-Hiring-
 - [x] Align .env.example with settings defaults and add missing env entries.
 - [x] Add environment/log level settings to config defaults.
 - [x] Improve startup logs with sanitized DB info and config highlights.
-- [ ] Commit with message: Day 04: backend - clean up settings defaults and startup logs.
-- [ ] Push to main and update Day 04 row with commit URL and status ✅ Done.
+- [x] Commit with message: Day 04: backend - clean up settings defaults and startup logs.
+- [x] Push to main and update Day 04 row with commit URL and status ✅ Done.
 
 ### Day 04 Success Criteria
 - Settings defaults match the .env.example template.
